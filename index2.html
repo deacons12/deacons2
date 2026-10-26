@@ -87,7 +87,7 @@
 <div class="content">
 <section class="page active" id="page-home">
 <div class="stats">
-<div class="stat"><div><div class="label">إجمالي الطلاب</div><div class="num" id="statStudents">1</div></div><div class="bubble">👥</div></div>
+<div class="stat"><div><div class="label">إجمالي الطلاب</div><div class="num" id="statStudents">50</div></div><div class="bubble">👥</div></div>
 <div class="stat"><div><div class="label">الحاضرون في آخر تسجيل</div><div class="num" id="statPresent">—</div></div><div class="bubble" style="background:#e3f8ef;color:#19a779">✓</div></div>
 <div class="stat"><div><div class="label">الغائبون في آخر تسجيل</div><div class="num" id="statAbsent">—</div></div><div class="bubble" style="background:#ffe8ed;color:#e94d68">✕</div></div>
 <div class="stat"><div><div class="label">متوسط الدرجات المسجلة</div><div class="num" id="statAverage">—</div></div><div class="bubble" style="background:#fff2d9;color:#d68b00">★</div></div>
@@ -147,7 +147,7 @@
 <section class="page" id="page-reports">
 <div class="card"><div class="cardhead"><h2>التقارير والإحصائيات</h2><div class="toolbar"><button class="primary" onclick="printFullReport()">🖨️ طباعة التقرير الشامل</button><button class="secondary" onclick="exportCSV('students')">تنزيل قائمة الطلاب CSV</button></div></div>
 <div class="reportgrid">
-<div class="reportbox">إجمالي الطلاب<b id="rStudents">1</b></div>
+<div class="reportbox">إجمالي الطلاب<b id="rStudents">50</b></div>
 <div class="reportbox">إجمالي سجلات الدرجات<b id="rGrades">0</b></div>
 <div class="reportbox">إجمالي سجلات الحضور<b id="rAtt">0</b></div>
 <div class="reportbox">متوسط الدرجات العام<b id="rAvg">—</b></div>
@@ -173,10 +173,9 @@
 const KEY='deacons2_weekly_tracker_v1';
 const FIREBASE_DB_URL='https://deacons2-default-rtdb.europe-west1.firebasedatabase.app';
 const PENDING_KEY=KEY+'_pendingSync';
-const ROSTER_RESET_KEY=KEY+'_youssef_only_migration_v1';
 let remoteReady=false, remoteBusy=false, saveTimer=null, lastRemoteSnapshot='', pendingSync=localStorage.getItem(PENDING_KEY)==='1', retryDelay=2000;
 function setSyncStatus(message,color='#a96b00'){const el=document.getElementById('syncStatus');if(el){el.textContent=message;el.style.color=color}}
-const initial=()=>({students:[{id:1,name:'يوسف',notes:''}],subjects:['رياضيات','لغة عربية','لغة إنجليزية','حاسب آلي'],grades:[],attendance:[],nextStudentId:2});
+const initial=()=>({students:[{"id":1,"name":"جوناثان أنطونيوس","notes":""},{"id":2,"name":"كيرلس كمال جمال","notes":""},{"id":3,"name":"كيڤن عصمت جاب الله","notes":""},{"id":4,"name":"ادم عماد ادور","notes":""},{"id":5,"name":"ادم عماد عادل","notes":""},{"id":6,"name":"ادم ماجد","notes":""},{"id":7,"name":"افرايم اشرف هلال","notes":""},{"id":8,"name":"اندرو شريف جاد","notes":""},{"id":9,"name":"انطون روماني رجائي","notes":""},{"id":10,"name":"انطون كرم سمير بخيت","notes":""},{"id":11,"name":"انطون مينا عيسى","notes":""},{"id":12,"name":"باجوش وليد عيسى","notes":""},{"id":13,"name":"باڤلي شنودة","notes":""},{"id":14,"name":"بيشوي اسحق","notes":""},{"id":15,"name":"بيشوي بكير","notes":""},{"id":16,"name":"بيمن باسم عايد","notes":""},{"id":17,"name":"توماس فارس","notes":""},{"id":18,"name":"جرجس عماد مرتضى","notes":""},{"id":19,"name":"جوناثان رأفت","notes":""},{"id":20,"name":"چوڤاني جرجس رمزي","notes":""},{"id":21,"name":"چون روماني جمال","notes":""},{"id":22,"name":"روڤانيو رأفت","notes":""},{"id":23,"name":"ستيڤين شنودة خلبوطة","notes":""},{"id":24,"name":"شنودة سامح فايق","notes":""},{"id":25,"name":"شنودة مينا عطية","notes":""},{"id":26,"name":"فايز جبرة فوزي","notes":""},{"id":27,"name":"فلتاؤي وليد عبدالله","notes":""},{"id":28,"name":"فليمون چون رأفت","notes":""},{"id":29,"name":"فيلوباتير ايمن انيس","notes":""},{"id":30,"name":"كاراس جرجس كرم","notes":""},{"id":31,"name":"كاراس جرجس نبيل","notes":""},{"id":32,"name":"كاراس جوزيف","notes":""},{"id":33,"name":"كاراس شنودة عاطف","notes":""},{"id":34,"name":"كاراس كرم","notes":""},{"id":35,"name":"كاراس نسيم","notes":""},{"id":36,"name":"كيرلس جوزيف بشتة","notes":""},{"id":37,"name":"كيرلس صفوت عيسى","notes":""},{"id":38,"name":"كيرلس فادي روماني","notes":""},{"id":39,"name":"كيرلس مدحت شحات","notes":""},{"id":40,"name":"مايكل باسم عايد","notes":""},{"id":41,"name":"مكاري مينا فؤاد","notes":""},{"id":42,"name":"نوڤير سمعان عزمي","notes":""},{"id":43,"name":"نوڤير مينا","notes":""},{"id":44,"name":"يسطس شكري فرج","notes":""},{"id":45,"name":"يوساب ميخائيل عماد","notes":""},{"id":46,"name":"يوسف ايمن منز","notes":""},{"id":47,"name":"يوسف غندور عادل","notes":""},{"id":48,"name":"يوسف مينا جرجس","notes":""},{"id":49,"name":"يوسف مينا دميان","notes":""},{"id":50,"name":"يوسف نادر","notes":""}],subjects:['رياضيات','لغة عربية','لغة إنجليزية','حاسب آلي'],grades:[],attendance:[],nextStudentId:51});
 let db=load();
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x&&Array.isArray(x.students))return x}catch(e){}return initial()}
 function save(){
@@ -193,7 +192,9 @@ async function pushToFirebase(){
     const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),15000);
     let response;try{response=await fetch(FIREBASE_DB_URL+'/deacons2_weekly_tracker.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:payload,signal:controller.signal})}finally{clearTimeout(timeout)}
     if(!response.ok)throw new Error('HTTP '+response.status);
-    lastRemoteSnapshot=payload;pendingSync=false;retryDelay=2000;localStorage.setItem(KEY,payload);localStorage.removeItem(PENDING_KEY);setSyncStatus('✓ تمت المزامنة والحفظ السحابي','#087c54');
+    lastRemoteSnapshot=payload;pendingSync=false;retryDelay=2000;localStorage.setItem(KEY,payload);localStorage.removeItem(PENDING_KEY);
+    if(localStorage.getItem(KEY+'_roster_migration_pending')==='1'){localStorage.setItem(KEY+'_roster_migration_20261026','1');localStorage.removeItem(KEY+'_roster_migration_pending');}
+    setSyncStatus('✓ تمت المزامنة والحفظ السحابي','#087c54');
   }catch(err){console.error('Firebase save failed:',err);pendingSync=true;try{localStorage.setItem(PENDING_KEY,'1')}catch(e){};remoteReady=false;setSyncStatus('⚠️ لم يتأكد الحفظ السحابي — سيُعاد المحاولة تلقائيًا','#c93450');scheduleReconnect();toast('تعذر تأكيد الحفظ السحابي. بياناتك موجودة محليًا وسيُعاد الاتصال تلقائيًا')}
   finally{remoteBusy=false}
 }
@@ -206,13 +207,19 @@ async function connectFirebase(){
     try{response=await fetch(FIREBASE_DB_URL+'/deacons2_weekly_tracker.json',{signal:controller.signal})}finally{clearTimeout(timeout)}
     if(!response.ok)throw new Error('قراءة البيانات: HTTP '+response.status);
     const remote=await response.json();
-    if(remote&&Array.isArray(remote.students)){
-      if(!localStorage.getItem(ROSTER_RESET_KEY)){
-        db={...initial(),...remote,students:[{id:1,name:'يوسف',notes:''}],grades:[],attendance:[],nextStudentId:2};
-        localStorage.setItem(KEY,JSON.stringify(db));
-        localStorage.setItem(ROSTER_RESET_KEY,'1');
-        pendingSync=true;localStorage.setItem(PENDING_KEY,'1');
-      }else if(pendingSync){
+    const rosterMigrationKey=KEY+'_roster_migration_20261026';
+    const rosterMigrationPendingKey=KEY+'_roster_migration_pending';
+    if(localStorage.getItem(rosterMigrationKey)!=='1'){
+      // One-time roster refresh: replace old students, clear their grades/attendance, preserve subjects.
+      const fresh=initial();
+      fresh.subjects=(remote&&Array.isArray(remote.subjects))?remote.subjects:(Array.isArray(db.subjects)?db.subjects:fresh.subjects);
+      db=fresh;
+      localStorage.setItem(KEY,JSON.stringify(db));
+      pendingSync=true;
+      localStorage.setItem(PENDING_KEY,'1');
+      localStorage.setItem(rosterMigrationPendingKey,'1');
+    }else if(remote&&Array.isArray(remote.students)){
+      if(pendingSync){
         // Local changes not yet confirmed are kept and uploaded instead of being overwritten by remote data.
         db=load();
       }else{
@@ -222,7 +229,6 @@ async function connectFirebase(){
     }else if(!pendingSync){
       const payload=JSON.stringify(db);const write=await fetch(FIREBASE_DB_URL+'/deacons2_weekly_tracker.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:payload});if(!write.ok)throw new Error('إنشاء البيانات: HTTP '+write.status);lastRemoteSnapshot=payload;
     }
-    // لا نحذف سجلات الحضور القديمة تلقائيًا عند الاتصال؛ نحافظ على البيانات الموجودة.
     remoteReady=true;retryDelay=2000;setSyncStatus('✓ متصل بقاعدة البيانات','#087c54');
     if(pendingSync)await pushToFirebase();else toast('تم الاتصال بقاعدة البيانات السحابية');
   }catch(err){remoteReady=false;console.error('Firebase connection failed:',err);setSyncStatus('⚠️ السحابة غير متصلة — جارٍ إعادة المحاولة','#c93450');scheduleReconnect()}
